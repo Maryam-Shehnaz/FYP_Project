@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   subTitle:{
     fontSize: 18,
     textAlign: "center",
-    color: colors.scondary,
+    color: colors.secondary,
     fontFamily: fonts.Medium,
     paddingHorizontal: 20,
     marginVertical: 20,
