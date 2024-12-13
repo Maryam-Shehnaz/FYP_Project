@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Image,
   StyleSheet,
@@ -5,55 +6,89 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
-import React, {useState} from 'react';
-import {colors} from '../utils/colors';
-import {fonts} from '../utils/fonts';
+import { colors } from '../utils/colors';
+import { fonts } from '../utils/fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios'; // Import axios to handle API requests
 
 const SignupScreen = () => {
-  // hook
+  // hooks
   const navigation = useNavigation();
   const [secureEntery, setSecureEntery] = useState(true);
+  const [username, setUsername] = useState('');  // changed name to username
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
+  // Handle go back
   const handleGoBack = () => {
-    // prop
     navigation.goBack();
   };
+
+  // Handle login navigation
   const handleLogin = () => {
     navigation.navigate('LOGIN');
+  };
+
+  // Handle signup form submission
+  const handleSignup = async () => {
+    if (!username || !email || !password) {
+      Alert.alert('All fields are required');
+      return;
+    }
+    // Email validation using regex (for general email format)
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert('Please enter a valid email address');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://192.168.00.103:3000/signup', {
+        username,  // Send 'username' instead of 'name'
+        email,
+        password,
+      });
+      console.log('API Response:', response);
+
+      if (response.status === 201) {
+        Alert.alert('Signup successful!');
+        // Navigate to login screen after successful signup
+        navigation.navigate('LOGIN');
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+      Alert.alert('Error during signup. Please try again.');
+    }
   };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.backButtonWrapper} onPress={handleGoBack}>
-        <Ionicons
-          name={'arrow-back-outline'}
-          color={colors.primary}
-          size={25}
-        />
+        <Ionicons name={'arrow-back-outline'} color={colors.primary} size={25} />
       </TouchableOpacity>
+
       <View style={styles.textContainer}>
         <Text style={styles.headingText}>Let's get</Text>
         <Text style={styles.headingText}>started</Text>
       </View>
 
-      {/* form */}
+      {/* Form */}
       <View style={styles.formContainer}>
         <View style={styles.inputContainer}>
-          <Ionicons
-            name={'person-outline'}
-            size={30}
-            color={colors.secondary}
-          />
+          <Ionicons name={'person-outline'} size={30} color={colors.secondary} />
           <TextInput
             style={styles.textInput}
             placeholder="Enter your Name"
             placeholderTextColor={colors.secondary}
+            value={username}  // Bind the username state
+            onChangeText={setUsername}
           />
         </View>
+
         <View style={styles.inputContainer}>
           <Ionicons name={'mail-outline'} size={30} color={colors.secondary} />
           <TextInput
@@ -61,8 +96,11 @@ const SignupScreen = () => {
             placeholder="Enter your Email"
             placeholderTextColor={colors.secondary}
             keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
           />
         </View>
+
         <View style={styles.inputContainer}>
           <SimpleLineIcons name={'lock'} size={30} color={colors.secondary} />
           <TextInput
@@ -70,6 +108,8 @@ const SignupScreen = () => {
             placeholder="Enter your Password"
             placeholderTextColor={colors.secondary}
             secureTextEntry={secureEntery}
+            value={password}
+            onChangeText={setPassword}
           />
           <TouchableOpacity onPress={() => setSecureEntery(prev => !prev)}>
             <Ionicons
@@ -79,31 +119,21 @@ const SignupScreen = () => {
             />
           </TouchableOpacity>
         </View>
-        {/* <View style={styles.inputContainer}>
-            <SimpleLineIcons name={"screen-smartphone"} size={30} color={colors.secondary}/>
-            <TextInput style={styles.textInput} 
-            placeholder='Enter your phone no'
-            placeholderTextColor={colors.secondary}
-            secureTextEntry={secureEntery}
-            keyboardType='phone-pad'
-            />
-            
-          </View> */}
-        {/* <TouchableOpacity>
-          <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
 
-          </TouchableOpacity> */}
-        <TouchableOpacity style={styles.loginButtonWrapper}>
+        {/* Sign up Button */}
+        <TouchableOpacity style={styles.loginButtonWrapper} onPress={handleSignup}>
           <Text style={styles.loginText}>Sign up</Text>
         </TouchableOpacity>
+
         <Text style={styles.continueText}>or continue with</Text>
         <TouchableOpacity style={styles.googleButtonContainer}>
           <Image
-            source={require('../assets/logo.jpg')}
+            source={require('../assets/google-logo.png')}
             style={styles.googleImage}
           />
           <Text style={styles.googleText}>Google</Text>
         </TouchableOpacity>
+
         <View style={styles.footerContainer}>
           <Text style={styles.accountText}>Already have an account!</Text>
           <TouchableOpacity onPress={handleLogin}>
@@ -116,6 +146,7 @@ const SignupScreen = () => {
 };
 
 export default SignupScreen;
+
 
 const styles = StyleSheet.create({
   container: {
