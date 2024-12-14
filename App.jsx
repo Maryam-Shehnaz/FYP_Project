@@ -7,6 +7,8 @@ import HomeScreen from './src/screen/HomeScreen';
 import LoginScreen from './src/screen/LoginScreen';
 import SignupScreen from './src/screen/SignupScreen';
 import DashboardScreen from './src/screen/DashboardScreen';
+// import 'react-native-gesture-handler';
+
 
 const Stack = createNativeStackNavigator();
 

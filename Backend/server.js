@@ -90,6 +90,8 @@ app.post('/login', (req, res) => {
 
 // Change Password endpoint
 app.post('/change-password', (req, res) => {
+  console.log(req.body);  // To debug and see the incoming data
+
   const { email, newPassword } = req.body;
 
   if (!email || !newPassword) {

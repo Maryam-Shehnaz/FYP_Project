@@ -84,7 +84,7 @@ const LoginScreen = () => {
       // Make an API request to change the password
       const response = await axios.post('http://192.168.0.103:3000/change-password', {
         email,
-        password: newPassword, 
+        newPassword, 
       });
 
       if (response.status === 200) {
@@ -131,7 +131,7 @@ const LoginScreen = () => {
             value={password}
             onChangeText={setPassword}
           />
-          <TouchableOpacity onPress={() => setSecureEntery((prev) => !prev)}>
+          <TouchableOpacity onPress={() => setSecureEntery((prev) => !prev)} style={styles.eyeButton}>
             <Ionicons
               name={secureEntery ? 'eye-off-outline' : 'eye-outline'}
               size={20}
@@ -159,32 +159,28 @@ const LoginScreen = () => {
         <View style={styles.footerContainer}>
           <Text style={styles.accountText}>Don't have an account?</Text>
           <TouchableOpacity onPress={handleSignup}>
-            <Text style={styles.signupText}>Sign up</Text>
+            <Text style={styles.signupText}> Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Forgot Password Modal */}
-      <Modal
-        visible={showModal}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setShowModal(false)}
-      >
-        <View style={styles.modalContainer}>
+      <Modal visible={showModal} transparent={true} animationType="slide">
+        <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Change Password</Text>
             <View style={styles.inputContainer}>
-              <SimpleLineIcons name={'lock'} size={30} color={colors.secondary} />
               <TextInput
-                style={styles.textInput}
-                placeholder="Enter New Password"
-                placeholderTextColor={colors.secondary}
+                style={styles.modalInput}
+                placeholder="Enter new password"
                 secureTextEntry={secureNewPassword}
-                value={newPassword}
                 onChangeText={setNewPassword}
+                value={newPassword}
               />
-              <TouchableOpacity onPress={() => setSecureNewPassword((prev) => !prev)}>
+              <TouchableOpacity
+                onPress={() => setSecureNewPassword(!secureNewPassword)}
+                style={styles.eyeButton}
+              >
                 <Ionicons
                   name={secureNewPassword ? 'eye-off-outline' : 'eye-outline'}
                   size={20}
@@ -193,16 +189,17 @@ const LoginScreen = () => {
               </TouchableOpacity>
             </View>
             <View style={styles.inputContainer}>
-              <SimpleLineIcons name={'lock'} size={30} color={colors.secondary} />
               <TextInput
-                style={styles.textInput}
-                placeholder="Confirm New Password"
-                placeholderTextColor={colors.secondary}
+                style={styles.modalInput}
+                placeholder="Confirm new password"
                 secureTextEntry={secureConfirmPassword}
-                value={confirmPassword}
                 onChangeText={setConfirmPassword}
+                value={confirmPassword}
               />
-              <TouchableOpacity onPress={() => setSecureConfirmPassword((prev) => !prev)}>
+              <TouchableOpacity
+                onPress={() => setSecureConfirmPassword(!secureConfirmPassword)}
+                style={styles.eyeButton}
+              >
                 <Ionicons
                   name={secureConfirmPassword ? 'eye-off-outline' : 'eye-outline'}
                   size={20}
@@ -210,10 +207,17 @@ const LoginScreen = () => {
                 />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.loginButtonWrapper} onPress={handleChangePassword}>
-              <Text style={styles.loginText}>Change Password</Text>
+
+            <TouchableOpacity
+              style={styles.changePasswordButton}
+              onPress={handleChangePassword}
+            >
+              <Text style={styles.changePasswordText}>Change Password</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setShowModal(false)}>
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={() => setShowModal(false)}
+            >
               <Text style={styles.cancelText}>Cancel</Text>
             </TouchableOpacity>
           </View>
@@ -222,8 +226,6 @@ const LoginScreen = () => {
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -265,6 +267,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontFamily: fonts.Light,
   },
+  eyeButton: {
+    position: 'absolute',
+    right: 15,
+  },
   forgotPasswordText: {
     textAlign: 'right',
     color: colors.primary,
@@ -290,95 +296,92 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Regular,
     color: colors.primary,
   },
-
   googleButtonContainer: {
-    flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: colors.primary,
+    backgroundColor: colors.white,
     borderRadius: 100,
+    flexDirection: 'row',
+    padding: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    gap: 10,
+    marginVertical: 10,
+    borderWidth: 1,
+    borderColor: colors.primary,
   },
   googleImage: {
-    height: 20,
     width: 20,
+    height: 20,
+    marginRight: 10,
   },
   googleText: {
-    fontSize: 20,
+    color: colors.primary,
+    fontSize: 16,
     fontFamily: fonts.SemiBold,
   },
   footerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 20,
-    gap: 5,
+    marginTop: 20,
   },
   accountText: {
-    color: colors.primary,
+    fontSize: 14,
     fontFamily: fonts.Regular,
+    color: colors.primary,
   },
   signupText: {
+    fontSize: 14,
+    fontFamily: fonts.SemiBold,
     color: colors.primary,
-    fontFamily: fonts.Bold,
   },
-
-    container: {
-      flex: 1,
-      backgroundColor: colors.white,
-      paddingHorizontal: 20,
-      paddingVertical: 30,
-    },
-    // Your existing styles...
-    modalContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-      backgroundColor: colors.white,
-      padding: 20,
-      borderRadius: 10,
-      width: '80%',
-      alignItems: 'center',
-    },
-    modalTitle: {
-      fontSize: 18,
-      fontFamily: fonts.bold,
-      marginBottom: 20,
-      color: colors.primary,
-    },
-    modalInput: {
-      width: '100%',
-      height: 40,
-      borderBottomWidth: 1,
-      borderBottomColor: colors.secondary,
-      marginBottom: 20,
-      paddingHorizontal: 10,
-      fontSize: 16,
-    },
-    modalButton: {
-      backgroundColor: colors.primary,
-      paddingVertical: 10,
-      paddingHorizontal: 40,
-      borderRadius: 5,
-    },
-    modalButtonText: {
-      color: colors.white,
-      fontSize: 16,
-    },
-    modalCloseButton: {
-      marginTop: 10,
-    },
-    modalCloseButtonText: {
-      color: colors.secondary,
-      fontSize: 16,
-    },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: colors.white,
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontFamily: fonts.SemiBold,
+    color: colors.primary,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  modalInput: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.secondary,
+    paddingVertical: 10,
+    marginBottom: 20,
+    fontSize: 16,
+    color: colors.primary,
+  },
+  changePasswordButton: {
+    backgroundColor: colors.primary,
+    paddingVertical: 10,
+    borderRadius: 100,
+    marginVertical: 10,
+  },
+  changePasswordText: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: colors.white,
+    fontFamily: fonts.SemiBold,
+  },
+  cancelButton: {
+    backgroundColor: colors.gray,
+    paddingVertical: 10,
+    borderRadius: 100,
+  },
+  cancelText: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: colors.white,
+    fontFamily: fonts.SemiBold,
+  },
 });
 
 export default LoginScreen;
-
-
