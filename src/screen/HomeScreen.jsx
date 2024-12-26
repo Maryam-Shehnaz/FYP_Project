@@ -40,8 +40,6 @@ const HomeScreen = () => {
         >
           <Text style={styles.signupButtonText}>Signup</Text>
         </TouchableOpacity>
-
-
       </View>
       
     </View>

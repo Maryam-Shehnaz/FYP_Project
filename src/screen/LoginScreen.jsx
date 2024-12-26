@@ -51,7 +51,7 @@ const LoginScreen = () => {
 
     try {
       // Send request to the backend for login authentication
-      const response = await axios.post('http://192.168.0.103:3000/login', {
+      const response = await axios.post('http://192.168.100.245:3000/login', {
         email,
         password,
       });
@@ -82,7 +82,7 @@ const LoginScreen = () => {
 
     try {
       // Make an API request to change the password
-      const response = await axios.post('http://192.168.0.103:3000/change-password', {
+      const response = await axios.post('http://192.168.100.245:3000/change-password', {
         email,
         newPassword, 
       });
