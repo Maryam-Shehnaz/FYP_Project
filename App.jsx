@@ -3,10 +3,11 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from './src/screen/HomeScreen';
+// import HomeScreen from './src/screen/OnboardingScreen';
 import LoginScreen from './src/screen/LoginScreen';
 import SignupScreen from './src/screen/SignupScreen';
 import DashboardScreen from './src/screen/DashboardScreen';
+import OnboardingScreen from './src/screen/OnboardingScreen';
 // import 'react-native-gesture-handler';
 
 
@@ -20,7 +21,7 @@ const App = () => {
           headerShown:false,
         }}>
           <Stack.Screen name={"HOME"} component=
-          {HomeScreen}/>
+          {OnboardingScreen}/>
           <Stack.Screen name={"LOGIN"} component=
           {LoginScreen}/>
           <Stack.Screen name={"SIGNUP"} component=

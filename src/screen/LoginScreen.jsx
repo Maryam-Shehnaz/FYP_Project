@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios'; // Import axios for API requests
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -51,12 +52,17 @@ const LoginScreen = () => {
 
     try {
       // Send request to the backend for login authentication
-      const response = await axios.post('http://192.168.100.245:3000/login', {
+      const response = await axios.post('http://192.168.1.103:3000/login', {
         email,
         password,
       });
 
       if (response.status === 200) {
+        // Save user details to AsyncStorage
+      await AsyncStorage.setItem('userDetails', JSON.stringify(response.data));
+      console.log('Fetched User Details:', response.data); // Ensure the user data is correct
+
+
         Alert.alert('Login successful!');
         navigation.navigate('DASHBOARD'); // Navigate to Dashboard on successful login
       }
@@ -82,7 +88,7 @@ const LoginScreen = () => {
 
     try {
       // Make an API request to change the password
-      const response = await axios.post('http://192.168.100.245:3000/change-password', {
+      const response = await axios.post('http://192.168.1.103:3000/change-password', {
         email,
         newPassword, 
       });

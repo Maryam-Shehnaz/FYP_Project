@@ -4,7 +4,7 @@ import { colors } from '../utils/colors'
 import { fonts } from '../utils/fonts'
 import { useNavigation } from '@react-navigation/native'
 
-const HomeScreen = () => {
+const OnboardingScreen = () => {
   const navigation = useNavigation();
 
   const handleLogin = () => {
@@ -46,7 +46,7 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default OnboardingScreen
 
 const styles = StyleSheet.create({
   container:{

@@ -14,6 +14,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios'; // Import axios to handle API requests
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const SignupScreen = () => {
   // hooks
@@ -33,6 +35,18 @@ const SignupScreen = () => {
     navigation.navigate('LOGIN');
   };
 
+   // Save user details to AsyncStorage
+   const saveUserDetails = async (userDetails) => {
+    try {
+      await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
+      console.log('User details saved:', userDetails);
+    } catch (error) {
+      console.error('Error saving user details:', error);
+      Alert.alert('Error saving user details.');
+    }
+  };
+
+
   // Handle signup form submission
   const handleSignup = async () => {
     if (!username || !email || !password) {
@@ -47,7 +61,7 @@ const SignupScreen = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.100.245:3000/signup', {
+      const response = await axios.post('http://192.168.1.103:3000/signup', {
         username,  // Send 'username' instead of 'name'
         email,
         password,
@@ -56,6 +70,10 @@ const SignupScreen = () => {
 
       if (response.status === 201) {
         Alert.alert('Signup successful!');
+
+       // Save user details locally
+       saveUserDetails({ username, email });
+
         // Navigate to login screen after successful signup
         navigation.navigate('LOGIN');
       }

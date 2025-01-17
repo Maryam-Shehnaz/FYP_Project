@@ -8,10 +8,10 @@ const port = 3000;
 
 // Database connection setup
 const db = mysql.createConnection({
-  host: 'localhost', // XAMPP MySQL host
-  user: 'root', // Default MySQL username
-  password: '', // Default MySQL password
-  database: 'user_auth', // Your database name
+  host: 'localhost', 
+  user: 'root', 
+  password: '', 
+  database: 'user_auth', 
 });
 
 // Check MySQL connection
@@ -82,8 +82,10 @@ app.post('/login', (req, res) => {
       if (!isMatch) {
         return res.status(401).send('Invalid password');
       }
-
-      res.status(200).send('Login successful');
+res.status(200).send({
+  username: user.username,
+  email: user.email
+})
     });
   });
 });
@@ -127,6 +129,7 @@ app.post('/change-password', (req, res) => {
     });
   });
 });
+
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
