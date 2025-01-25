@@ -61,7 +61,7 @@ const SignupScreen = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.1.103:3000/signup', {
+      const response = await axios.post('http://192.168.1.100:3000/auth/signup', {
         username,  // Send 'username' instead of 'name'
         email,
         password,
