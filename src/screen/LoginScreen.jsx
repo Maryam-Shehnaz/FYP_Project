@@ -14,7 +14,7 @@ import { fonts } from '../utils/fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios'; // Import axios for API requests
+import axios from 'axios'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
@@ -52,7 +52,7 @@ const LoginScreen = () => {
 
     try {
       // Send request to the backend for login authentication
-      const response = await axios.post('http://192.168.1.100:3000/auth/login', {
+      const response = await axios.post('http://192.168.1.104:3000/auth/login', {
         email,
         password,
       });
@@ -88,7 +88,7 @@ const LoginScreen = () => {
 
     try {
       // Make an API request to change the password
-      const response = await axios.post('http://192.168.1.100:3000/auth/change-password', {
+      const response = await axios.post('http://192.168.1.104:3000/auth/change-password', {
         email,
         newPassword, 
       });
@@ -154,14 +154,18 @@ const LoginScreen = () => {
         >
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
-        <Text style={styles.continueText}>or continue with</Text>
+
+        {/* continue with google */}
+        {/* <Text style={styles.continueText}>or continue with</Text>
         <TouchableOpacity style={styles.googleButtonContainer}>
           <Image
             source={require('../assets/google-logo.png')}
             style={styles.googleImage}
           />
           <Text style={styles.googleText}>Google</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+
+
         <View style={styles.footerContainer}>
           <Text style={styles.accountText}>Don't have an account?</Text>
           <TouchableOpacity onPress={handleSignup}>
@@ -302,27 +306,29 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Regular,
     color: colors.primary,
   },
-  googleButtonContainer: {
-    backgroundColor: colors.white,
-    borderRadius: 100,
-    flexDirection: 'row',
-    padding: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 10,
-    borderWidth: 1,
-    borderColor: colors.primary,
-  },
-  googleImage: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
-  },
-  googleText: {
-    color: colors.primary,
-    fontSize: 16,
-    fontFamily: fonts.SemiBold,
-  },
+  
+  // googleButtonContainer: {
+  //   backgroundColor: colors.white,
+  //   borderRadius: 100,
+  //   flexDirection: 'row',
+  //   padding: 12,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   marginVertical: 10,
+  //   borderWidth: 1,
+  //   borderColor: colors.primary,
+  // },
+  // googleImage: {
+  //   width: 20,
+  //   height: 20,
+  //   marginRight: 10,
+  // },
+  // googleText: {
+  //   color: colors.primary,
+  //   fontSize: 16,
+  //   fontFamily: fonts.SemiBold,
+  // },
+
   footerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',

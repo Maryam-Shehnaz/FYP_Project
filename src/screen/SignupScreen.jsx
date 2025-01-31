@@ -13,7 +13,7 @@ import { fonts } from '../utils/fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios'; // Import axios to handle API requests
+import axios from 'axios'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -61,7 +61,7 @@ const SignupScreen = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.1.100:3000/auth/signup', {
+      const response = await axios.post('http://192.168.1.104:3000/auth/signup', {
         username,  // Send 'username' instead of 'name'
         email,
         password,
@@ -143,14 +143,16 @@ const SignupScreen = () => {
           <Text style={styles.loginText}>Sign up</Text>
         </TouchableOpacity>
 
-        <Text style={styles.continueText}>or continue with</Text>
+        {/* continue with google */}
+        {/* <Text style={styles.continueText}>or continue with</Text>
         <TouchableOpacity style={styles.googleButtonContainer}>
           <Image
             source={require('../assets/google-logo.png')}
             style={styles.googleImage}
           />
           <Text style={styles.googleText}>Google</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+
 
         <View style={styles.footerContainer}>
           <Text style={styles.accountText}>Already have an account!</Text>
@@ -232,24 +234,25 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
 
-  googleButtonContainer: {
-    flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: colors.primary,
-    borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    gap: 10,
-  },
-  googleImage: {
-    height: 20,
-    width: 20,
-  },
-  googleText: {
-    fontSize: 20,
-    fontFamily: fonts.SemiBold,
-  },
+  // googleButtonContainer: {
+  //   flexDirection: 'row',
+  //   borderWidth: 2,
+  //   borderColor: colors.primary,
+  //   borderRadius: 100,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   padding: 10,
+  //   gap: 10,
+  // },
+  // googleImage: {
+  //   height: 20,
+  //   width: 20,
+  // },
+  // googleText: {
+  //   fontSize: 20,
+  //   fontFamily: fonts.SemiBold,
+  // },
+  
   footerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',

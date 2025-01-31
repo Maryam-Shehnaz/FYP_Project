@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-import OnboardingScreen from '../screen/OnboardingScreen'; 
-import BottomTabNavigator from '../components/BottomTabNavigator'; 
+import {useNavigation} from '@react-navigation/native';
+import OnboardingScreen from '../screen/OnboardingScreen';
+import BottomTabNavigator from '../components/BottomTabNavigator';
 
 // Drawer Navigator
 const Drawer = createDrawerNavigator();
@@ -25,7 +25,7 @@ const Drawer = createDrawerNavigator();
 // };
 
 // Custom Header Component
-const CustomHeader = ({ title }) => {
+const CustomHeader = ({title}) => {
   const navigation = useNavigation();
 
   return (
@@ -39,7 +39,7 @@ const CustomHeader = ({ title }) => {
 };
 
 // Custom Drawer Content Component
-const CustomDrawerContent = ({ navigation }) => {
+const CustomDrawerContent = ({navigation}) => {
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const CustomDrawerContent = ({ navigation }) => {
   const logout = async () => {
     try {
       await AsyncStorage.removeItem('userDetails');
-      navigation.navigate('Onboarding'); // Navigate to Onboarding screen after logout
+      navigation.navigate('Onboarding'); 
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -71,8 +71,8 @@ const CustomDrawerContent = ({ navigation }) => {
     <View style={styles.drawerContainer}>
       {userDetails ? (
         <View style={styles.userInfo}>
-          <Image
-            source={{ uri: 'https://www.w3schools.com/w3images/avatar2.png' }}
+          
+          <Image source={require('../assets/user-profile.png')}
             style={styles.userImage}
           />
           <Text style={styles.userName}>{userDetails.username}</Text>
@@ -89,12 +89,11 @@ const CustomDrawerContent = ({ navigation }) => {
 };
 
 // Dashboard Screen with Drawer
-const DashboardScreen = ({ navigation }) => {
+const DashboardScreen = ({navigation}) => {
   return (
     <Drawer.Navigator
-      screenOptions={{ headerShown: true }}
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
-    >
+      screenOptions={{headerShown: true}}
+      drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
         name="Home"
         component={BottomTabNavigator}
@@ -105,9 +104,10 @@ const DashboardScreen = ({ navigation }) => {
       <Drawer.Screen
         name="Onboarding"
         component={OnboardingScreen} // Directly use OnboardingScreen from the path
-        options={{ drawerItemStyle: { display: 'none' },// Hide the Onboarding screen in the drawer
-        headerShown: false,
-       }} // Hide header when navigating to OnboardingScreen
+        options={{
+          drawerItemStyle: {display: 'none'}, // Hide the Onboarding screen in the drawer
+          headerShown: false,
+        }} // Hide header when navigating to OnboardingScreen
       />
     </Drawer.Navigator>
   );
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: '#6200EE',
+    backgroundColor: '#318F93',
   },
   headerTitle: {
     marginLeft: 20,
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   userImage: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     borderRadius: 50,
     marginBottom: 10,
   },
@@ -147,11 +147,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   userEmail: {
+    marginTop: 10,
     fontSize: 16,
     color: 'gray',
   },
   logoutButton: {
-    backgroundColor: '#FF3B30',
+    backgroundColor: '#318F93',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
