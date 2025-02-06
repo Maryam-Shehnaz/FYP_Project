@@ -61,7 +61,7 @@ const CustomDrawerContent = ({navigation}) => {
   const logout = async () => {
     try {
       await AsyncStorage.removeItem('userDetails');
-      navigation.navigate('Onboarding'); 
+      navigation.navigate('Onboarding');
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -71,11 +71,19 @@ const CustomDrawerContent = ({navigation}) => {
     <View style={styles.drawerContainer}>
       {userDetails ? (
         <View style={styles.userInfo}>
-          
-          <Image source={require('../assets/user-profile.png')}
+          <Image
+            source={require('../assets/user-profile.png')}
             style={styles.userImage}
           />
-          <Text style={styles.userName}>{userDetails.username}</Text>
+          {/* <Text style={styles.userName}>{userDetails.username}</Text> */}
+          <Text style={styles.userName}>
+            {userDetails.username
+              .split(' ') // Split the full name into words
+              .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+              .join(' ')}{' '}
+            {/* Join words back into a single string */}
+          </Text>
+
           <Text style={styles.userEmail}>{userDetails.email}</Text>
         </View>
       ) : (
@@ -95,7 +103,7 @@ const DashboardScreen = ({navigation}) => {
       screenOptions={{headerShown: true}}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
-        name="Home"
+        name="Dashboard"
         component={BottomTabNavigator}
         options={{
           header: () => <CustomHeader title="" />,

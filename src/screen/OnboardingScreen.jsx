@@ -4,6 +4,7 @@ import { colors } from '../utils/colors'
 import { fonts } from '../utils/fonts'
 import { useNavigation } from '@react-navigation/native'
 
+
 const OnboardingScreen = () => {
   const navigation = useNavigation();
 
@@ -14,18 +15,16 @@ const OnboardingScreen = () => {
   const handleSignup = () => {
     navigation.navigate("SIGNUP");
   };
-
-  
+ 
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/logo.jpg")} style={styles.logo}/>
+      <Image source={require("../assets/mediscan.png")} style={styles.logo}/>
       <Image source={require("../assets/main.jpg")} style={styles.bannerImage} />
-      <Text style={styles.title}>Lorem ipsum dolor</Text>
-      <Text style={styles.subTitle}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint illum 
-        maxime accusamus totam explicabo quibusdam.
+      <Text style={styles.title}>Your Digital Prescription Assistant</Text>
+      <Text style={styles.subTitle}>Transform your handwritten prescriptions into clear digital records. Scan, store, and understand your medications with confidence.
       </Text>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity 
+        <TouchableOpacity
         style={[
         styles.loginButtonWrapper,
         {backgroundColor: colors.primary},
@@ -40,8 +39,9 @@ const OnboardingScreen = () => {
         >
           <Text style={styles.signupButtonText}>Signup</Text>
         </TouchableOpacity>
-      </View>
       
+      </View>
+
     </View>
   )
 }
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   logo:{
     height: 120,
-    width: 140,
+    width: 290,
     marginVertical:30,
   },
   bannerImage:{
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 
   },
   title:{
-    fontSize:40,
+    fontSize:30,
     fontFamily: fonts.SemiBold,
     paddingHorizontal: 20,
     textAlign: "center",
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 
   },
   buttonContainer:{
-    
+
     marginTop: 20,
     flexDirection: "row",
     borderWidth: 2,
@@ -109,6 +109,8 @@ const styles = StyleSheet.create({
   signupButtonText:{
     fontSize: 18,
     fontFamily: fonts.SemiBold,
+    color: colors.primary,
   }
 
 });
+

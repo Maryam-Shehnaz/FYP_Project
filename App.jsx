@@ -1,14 +1,12 @@
-//rnfes
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-// import HomeScreen from './src/screen/OnboardingScreen';
 import LoginScreen from './src/screen/LoginScreen';
 import SignupScreen from './src/screen/SignupScreen';
 import DashboardScreen from './src/screen/DashboardScreen';
 import OnboardingScreen from './src/screen/OnboardingScreen';
-// import 'react-native-gesture-handler';
+import ForgotPasswordScreen from './src/screen/ForgotPasswordScreen'; 
 
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +26,8 @@ const App = () => {
           {SignupScreen}/>
           <Stack.Screen name="DASHBOARD" component=
           {DashboardScreen} /> 
+           <Stack.Screen name="FORGOTPASSWORD" component=
+           {ForgotPasswordScreen} /> 
           
         </Stack.Navigator>
     </NavigationContainer>
