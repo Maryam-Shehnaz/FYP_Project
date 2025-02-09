@@ -6,6 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import DashboardContent from '../screen/Drawer/DashboardContent'; 
 import ScanScreen from '../screen/Drawer/ScanScreen';
 import HistoryScreen from '../screen/Drawer/HistoryScreen';
+import MedicineInfo from './../screen/Drawer/MedicineInfo';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +23,9 @@ const BottomTabNavigator = () => {
             iconName = focused ? 'scan' : 'scan-outline';
           } else if (route.name === 'History') {
             iconName = focused ? 'time' : 'time-outline';
+          }
+          else if (route.name === 'Medicine') {  
+            iconName = focused ? 'medkit' : 'medkit-outline';// Added new icon
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -43,6 +47,11 @@ const BottomTabNavigator = () => {
       <Tab.Screen 
         name="History" 
         component={HistoryScreen} 
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen 
+        name="Medicine" 
+        component={MedicineInfo} 
         options={{ headerShown: false }}
       />
     </Tab.Navigator>
