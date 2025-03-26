@@ -52,7 +52,7 @@ const ForgotPasswordScreen = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.1.105:3000/auth/change-password', {
+      const response = await axios.post('http://192.168.0.102:3000/auth/change-password', {
         email,
         newPassword,
       });

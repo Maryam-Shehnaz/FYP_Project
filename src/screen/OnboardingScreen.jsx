@@ -18,8 +18,9 @@ const OnboardingScreen = () => {
  
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/mediscan.png")} style={styles.logo}/>
-      <Image source={require("../assets/main.jpg")} style={styles.bannerImage} />
+       <Text style={styles.appName}>MediScript</Text>
+      {/* <Image source={require("../assets/logo.png")} style={styles.logo}/> */}
+      <Image source={require("../assets/bannerImage.png")} style={styles.bannerImage} />
       <Text style={styles.title}>Your Digital Prescription Assistant</Text>
       <Text style={styles.subTitle}>Transform your handwritten prescriptions into clear digital records. Scan, store, and understand your medications with confidence.
       </Text>
@@ -55,11 +56,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
   },
-  logo:{
-    height: 120,
-    width: 290,
-    marginVertical:30,
+  appName: {
+    fontSize: 36,
+    fontFamily: fonts.Bold,
+    color: '#226062',
+    marginVertical: 40,
+    textAlign: "center",
   },
+  // logo:{
+  //   height: 120,
+  //   width: 290,
+  //   marginVertical:30,
+  // },
   bannerImage:{
     marginVertical:20,
     height:250,

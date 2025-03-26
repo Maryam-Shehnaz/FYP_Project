@@ -1,6 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button, FlatList, StyleSheet} from 'react-native';
-import { colors } from './../../utils/colors';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  FlatList,
+  StyleSheet,
+} from 'react-native';
+import {colors} from './../../utils/colors';
 
 // Medicine type definition
 type Medicine = {
@@ -35,10 +42,13 @@ const CheckMedicineScreen: React.FC = () => {
         placeholder="Search medicine"
         style={styles.input}
       />
-     <View style={styles.buttonContainer}>
-  <Button title="Search" onPress={() => searchMedicine(query)} color={colors.primary} />
-</View>
-
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Search"
+          onPress={() => searchMedicine(query)}
+          color={colors.primary}
+        />
+      </View>
 
       {/* Medicine List */}
       <FlatList
@@ -47,17 +57,25 @@ const CheckMedicineScreen: React.FC = () => {
         renderItem={({item}) => {
           // Extract substitutes
           const substitutes = Object.entries(item)
-            .filter(([key, value]) => key.startsWith('substitute') && value !== 'unknown')
+            .filter(
+              ([key, value]) =>
+                key.startsWith('substitute') && value !== 'unknown',
+            )
             .map(([_, value]) => value);
 
           // Extract side effects
           const sideEffects = Object.entries(item)
-            .filter(([key, value]) => key.startsWith('sideEffect') && value !== 'unknown')
+            .filter(
+              ([key, value]) =>
+                key.startsWith('sideEffect') && value !== 'unknown',
+            )
             .map(([_, value]) => value);
 
           // Extract uses
           const uses = Object.entries(item)
-            .filter(([key, value]) => key.startsWith('use') && value !== 'unknown')
+            .filter(
+              ([key, value]) => key.startsWith('use') && value !== 'unknown',
+            )
             .map(([_, value]) => value);
 
           return (
@@ -99,11 +117,24 @@ const CheckMedicineScreen: React.FC = () => {
                   ))}
                 </View>
               )}
+              <Text style={{ marginTop: 6 }} /> 
 
-              <Text style={styles.detailText}>Chemical Class: {item['Chemical Class']}</Text>
-              <Text style={styles.detailText}>Habit Forming: {item['Habit Forming']}</Text>
-              <Text style={styles.detailText}>Therapeutic Class: {item['Therapeutic Class']}</Text>
-              <Text style={styles.detailText}>Action Class: {item['Action Class']}</Text>
+              <Text>
+                <Text style={styles.detailLabel}>Chemical Class:</Text>{' '}
+                {item['Chemical Class']}
+              </Text>
+              <Text>
+                <Text style={styles.detailLabel}>Habit Forming:</Text>{' '}
+                {item['Habit Forming']}
+              </Text>
+              <Text>
+                <Text style={styles.detailLabel}>Therapeutic Class:</Text>{' '}
+                {item['Therapeutic Class']}
+              </Text>
+              <Text>
+                <Text style={styles.detailLabel}>Action Class:</Text>{' '}
+                {item['Action Class']}
+              </Text>
             </View>
           );
         }}
@@ -112,7 +143,7 @@ const CheckMedicineScreen: React.FC = () => {
   );
 };
 
-// 🎨 Styles
+// Styles
 const styles = StyleSheet.create({
   container: {
     padding: 20,
@@ -137,7 +168,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginTop: 10,
   },
-  
+
   medicineCard: {
     padding: 15,
     borderBottomWidth: 1,
@@ -147,7 +178,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     elevation: 2,
   },
   medicineName: {
@@ -170,6 +201,13 @@ const styles = StyleSheet.create({
     color: '#444',
     marginTop: 3,
   },
+  detailLabel: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: '#000',
+
+  },
+  
 });
 
 export default CheckMedicineScreen;

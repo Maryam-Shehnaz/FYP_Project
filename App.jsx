@@ -8,7 +8,6 @@ import DashboardScreen from './src/screen/DashboardScreen';
 import OnboardingScreen from './src/screen/OnboardingScreen';
 import ForgotPasswordScreen from './src/screen/ForgotPasswordScreen'; 
 
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {

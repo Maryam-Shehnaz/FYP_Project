@@ -6,25 +6,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import OnboardingScreen from '../screen/OnboardingScreen';
 import BottomTabNavigator from '../components/BottomTabNavigator';
+import FAQScreen from '../screen/FAQScreen';
+import ProfileScreen from '../screen/ProfileScreen';
+import PrivacyPolicy from '../screen/PrivacyPolicy';
+import RateUsScreen from '../screen/RateUsScreen'; // Import Rate Us Screen
+import Icon from 'react-native-vector-icons/Ionicons';
 
-// Drawer Navigator
 const Drawer = createDrawerNavigator();
 
-// Function to Check User Details
-// const checkUserDetails = async () => {
-//   try {
-//     const userDetails = await AsyncStorage.getItem('userDetails');
-//     if (userDetails) {
-//       console.log('User details found:', JSON.parse(userDetails));
-//     } else {
-//       console.log('No user details saved in AsyncStorage.');
-//     }
-//   } catch (error) {
-//     console.error('Error retrieving user details:', error);
-//   }
-// };
-
-// Custom Header Component
 const CustomHeader = ({title}) => {
   const navigation = useNavigation();
 
@@ -38,7 +27,6 @@ const CustomHeader = ({title}) => {
   );
 };
 
-// Custom Drawer Content Component
 const CustomDrawerContent = ({navigation}) => {
   const [userDetails, setUserDetails] = useState(null);
 
@@ -47,14 +35,12 @@ const CustomDrawerContent = ({navigation}) => {
       try {
         const storedDetails = await AsyncStorage.getItem('userDetails');
         if (storedDetails) {
-          const parsedDetails = JSON.parse(storedDetails);
-          setUserDetails(parsedDetails);
+          setUserDetails(JSON.parse(storedDetails));
         }
       } catch (error) {
         console.error('Error retrieving user details:', error);
       }
     };
-
     getUserDetails();
   }, []);
 
@@ -75,20 +61,43 @@ const CustomDrawerContent = ({navigation}) => {
             source={require('../assets/user-profile.png')}
             style={styles.userImage}
           />
-          {/* <Text style={styles.userName}>{userDetails.username}</Text> */}
-          <Text style={styles.userName}>
-            {userDetails.username
-              .split(' ') // Split the full name into words
-              .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
-              .join(' ')}{' '}
-            {/* Join words back into a single string */}
-          </Text>
-
+          <Text style={styles.userName}>{userDetails.username}</Text>
           <Text style={styles.userEmail}>{userDetails.email}</Text>
         </View>
       ) : (
         <Text style={styles.loadingText}>Loading user details...</Text>
       )}
+
+      <View
+        style={{flex: 1, justifyContent: 'flex-start', paddingVertical: 20}}>
+        <TouchableOpacity
+          style={styles.navButton}
+          onPress={() => navigation.navigate('Profile')}>
+          <Icon name="person-outline" size={20} color="#333" />
+          <Text style={styles.navText}>Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.faqButton}
+          onPress={() => navigation.navigate('FAQ')}>
+          <Icon name="help-circle-outline" size={20} color="#333" />
+          <Text style={styles.faqText}>FAQs</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.faqButton}
+          onPress={() => navigation.navigate('PrivacyPolicy')}>
+          <Icon name="shield-checkmark-outline" size={20} color="#333" />
+          <Text style={styles.faqText}>Privacy Policy</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.faqButton}
+          onPress={() => navigation.navigate('RateUs')}>
+          <Icon name="star-outline" size={20} color="#333" />
+          <Text style={styles.faqText}>Rate Us</Text>
+        </TouchableOpacity>
+      </View>
+
       <TouchableOpacity onPress={logout} style={styles.logoutButton}>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
@@ -96,7 +105,6 @@ const CustomDrawerContent = ({navigation}) => {
   );
 };
 
-// Dashboard Screen with Drawer
 const DashboardScreen = ({navigation}) => {
   return (
     <Drawer.Navigator
@@ -110,12 +118,32 @@ const DashboardScreen = ({navigation}) => {
         }}
       />
       <Drawer.Screen
-        name="Onboarding"
-        component={OnboardingScreen} // Directly use OnboardingScreen from the path
+        name="FAQ"
+        component={FAQScreen}
+        options={{header: () => <CustomHeader title="" />}}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={ProfileScreen}
         options={{
-          drawerItemStyle: {display: 'none'}, // Hide the Onboarding screen in the drawer
-          headerShown: false,
-        }} // Hide header when navigating to OnboardingScreen
+          header: () => <CustomHeader title="" />,
+        }}
+      />
+
+      <Drawer.Screen
+        name="PrivacyPolicy"
+        component={PrivacyPolicy}
+        options={{header: () => <CustomHeader title="" />}}
+      />
+      <Drawer.Screen
+        name="RateUs"
+        component={RateUsScreen}
+        options={{header: () => <CustomHeader title="" />}}
+      />
+      <Drawer.Screen
+        name="Onboarding"
+        component={OnboardingScreen}
+        options={{drawerItemStyle: {display: 'none'}, headerShown: false}}
       />
     </Drawer.Navigator>
   );
@@ -170,15 +198,27 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
-  dashboardContainer: {
-    flex: 1,
-    justifyContent: 'center',
+  navButton: {
+    flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    marginBottom: 10,
   },
-  dashboardText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
+  faqButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+  },
+  navText: {
+    fontSize: 16,
+    color: '#333',
+    marginLeft: 10,
+  },
+  faqText: {
+    fontSize: 16,
+    color: '#333',
+    marginLeft: 10,
   },
 });

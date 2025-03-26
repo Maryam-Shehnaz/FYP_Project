@@ -1,25 +1,3 @@
-// // src/screen/Drawer/DashboardContent.js
-// import React from 'react';
-// import { View, Text, StyleSheet } from 'react-native';
-
-// const DashboardContent = () => {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Welcome</Text>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center'
-//   }
-// });
-
-// export default DashboardContent;
-
 import React from 'react';
 import {
   View,
@@ -69,7 +47,7 @@ const HomeScreen = () => {
         <ScrollView style={styles.contentContainer}>
           {/* Header Section */}
           <View style={styles.header}>
-            <Text style={styles.appName}>MediScan</Text>
+            <Text style={styles.appName}>MediScript</Text>
             <Text style={styles.tagline}>
               Your Digital Prescription Assistant
             </Text>

@@ -1,33 +1,3 @@
-// import React from 'react';
-// import { Modal, View, Text, ScrollView, Button, StyleSheet } from 'react-native';
-// import { ResultItem } from './ResultItem';
-// import { styles } from '../styles/styles';
-
-// interface ResultModalProps {
-//   visible: boolean;
-//   onClose: () => void;
-//   ocrResult: any;
-// }
-
-// export const ResultModal = ({ visible, onClose, ocrResult }: ResultModalProps) => (
-//   <Modal
-//     visible={visible}
-//     animationType="slide"
-//     onRequestClose={onClose}
-//   >
-//     <View style={styles.modalContainer}>
-//       <Text style={styles.modalTitle}>Prescription Details</Text>
-//       <ScrollView style={styles.modalContent}>
-//         {ocrResult && Object.entries(ocrResult.structuredData).map(([key, value]) => (
-//           <ResultItem key={key} label={key} value={value} />
-//         ))}
-//       </ScrollView>
-//       <Button title="Close" onPress={onClose} />
-//     </View>
-//   </Modal>
-// );
-
-// components/ResultModal.tsx
 import React from 'react';
 import { Modal, View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { ResultItem } from './ResultItem';
