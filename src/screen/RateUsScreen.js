@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.0.102:3000/reviews'; // Replace with your backend IP
+const API_URL = 'http://192.168.1.103:3000/reviews'; 
 
 const RateUsScreen = () => {
+  const navigation = useNavigation(); // Navigation hook
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [reviews, setReviews] = useState([]);
@@ -87,6 +90,10 @@ const RateUsScreen = () => {
 
   return (
     <View style={styles.container}>
+      {/* Back Button */}
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Icon name="arrow-back" size={24} color="black" />
+      </TouchableOpacity>
       <Text style={styles.title}>Rate Us</Text>
 
       <AirbnbRating count={5} defaultRating={rating} size={30} onFinishRating={setRating} />
@@ -118,8 +125,6 @@ const RateUsScreen = () => {
     </View>
   );
 };
-
-
 
 export default RateUsScreen;
 
