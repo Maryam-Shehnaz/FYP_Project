@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   ImageBackground,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -33,7 +33,17 @@ const HomeScreen = () => {
       icon: '💊',
       route: 'MedicineInfo',
     },
+    {
+      title: 'MedAssist',
+      description: 'Get answers to your medical questions instantly',
+      icon: '🤖',
+      route: 'Chatbot',
+    }
   ];
+
+  const openChatbot = () => {
+    navigation.navigate('Chatbot');  // Navigate to Chatbot screen
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,7 +59,7 @@ const HomeScreen = () => {
           <View style={styles.header}>
             <Text style={styles.appName}>MediScript</Text>
             <Text style={styles.tagline}>
-              Your Digital Prescription Assistant
+              Your Digital Health Assistant
             </Text>
           </View>
 
@@ -72,11 +82,17 @@ const HomeScreen = () => {
             ))}
           </View>
         </ScrollView>
+
+        {/* Chatbot Icon */}
+        <TouchableOpacity style={styles.chatbotIcon} onPress={openChatbot}>
+          <Text style={styles.chatbotIconText}>🤖</Text>
+        </TouchableOpacity>
       </ImageBackground>
     </SafeAreaView>
   );
 };
 
+// Styles for the chatbot icon
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -91,7 +107,6 @@ const styles = StyleSheet.create({
   header: {
     padding: 20,
     backgroundColor: '#226062',
-    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
     alignItems: 'center',
     borderRadius: 10,
     marginTop: 30,
@@ -101,7 +116,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
     textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: {width: 1, height: 1},
+    textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
   },
   tagline: {
@@ -119,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     color: '#FFFFFF',
     textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: {width: 1, height: 1},
+    textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
   },
   featureCard: {
@@ -130,7 +145,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     elevation: 4,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
@@ -150,6 +165,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#7F8C8D',
     marginTop: 5,
+  },
+  
+  chatbotIcon: {
+    position: 'absolute',
+    bottom: 30,
+    right: 20,
+    backgroundColor: '#226062',
+    padding: 15,
+    borderRadius: 50,
+    elevation: 5,
+  },
+  chatbotIconText: {
+    fontSize: 30,
+    color: '#FFFFFF',
   },
 });
 

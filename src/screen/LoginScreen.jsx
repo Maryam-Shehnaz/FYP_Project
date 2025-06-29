@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,12 +7,12 @@ import {
   View,
   Alert,
 } from 'react-native';
-import { colors } from '../utils/colors';
-import { fonts } from '../utils/fonts';
+import {colors} from '../utils/colors';
+import {fonts} from '../utils/fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import { useNavigation } from '@react-navigation/native';
-import axios from 'axios'; 
+import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
@@ -26,7 +26,7 @@ const LoginScreen = () => {
     navigation.goBack();
   };
 
-  const validateEmail = (email) => {
+  const validateEmail = email => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   };
@@ -46,10 +46,13 @@ const LoginScreen = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.1.103:3000/auth/login', {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        'http://192.168.1.102:3000/auth/login',
+        {
+          email,
+          password,
+        },
+      );
 
       if (response.status === 200) {
         const userDetails = {
@@ -57,7 +60,7 @@ const LoginScreen = () => {
           email: response.data.email,
           username: response.data.username,
         };
-        
+
         await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
         console.log('Fetched User Details:', userDetails);
 
@@ -67,7 +70,9 @@ const LoginScreen = () => {
     } catch (error) {
       console.error('Error during login:', error);
       // Set password error when login fails
-      setPasswordError('Wrong password. Try again or click Forgot Password to reset it.');
+      setPasswordError(
+        'Wrong password. Try again or click Forgot Password to reset it.',
+      );
     }
   };
 
@@ -82,7 +87,11 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.backButtonWrapper} onPress={handleGoBack}>
-        <Ionicons name={'arrow-back-outline'} color={colors.primary} size={25} />
+        <Ionicons
+          name={'arrow-back-outline'}
+          color={colors.primary}
+          size={25}
+        />
       </TouchableOpacity>
       <View style={styles.textContainer}>
         <Text style={styles.headingText}>Hey,</Text>
@@ -102,12 +111,11 @@ const LoginScreen = () => {
             onChangeText={setEmail}
           />
         </View>
-        <View 
+        <View
           style={[
-            styles.inputContainer, 
-            passwordError ? styles.errorInputContainer : {}
-          ]}
-        >
+            styles.inputContainer,
+            passwordError ? styles.errorInputContainer : {},
+          ]}>
           <SimpleLineIcons name={'lock'} size={30} color={colors.secondary} />
           <TextInput
             style={styles.textInput}
@@ -117,7 +125,9 @@ const LoginScreen = () => {
             value={password}
             onChangeText={setPassword}
           />
-          <TouchableOpacity onPress={() => setSecureEntery((prev) => !prev)} style={styles.eyeButton}>
+          <TouchableOpacity
+            onPress={() => setSecureEntery(prev => !prev)}
+            style={styles.eyeButton}>
             <Ionicons
               name={secureEntery ? 'eye-off-outline' : 'eye-outline'}
               size={20}
@@ -133,8 +143,7 @@ const LoginScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.loginButtonWrapper}
-          onPress={handleLogin}
-        >
+          onPress={handleLogin}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
 
@@ -150,161 +159,89 @@ const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  // ... (previous styles remain the same)
   container: {
-        flex: 1,
-        backgroundColor: colors.white,
-        padding: 20,
-      },
-      backButtonWrapper: {
-        height: 40,
-        width: 40,
-        backgroundColor: colors.gray,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      textContainer: {
-        marginVertical: 20,
-      },
-      headingText: {
-        fontSize: 32,
-        color: colors.primary,
-        fontFamily: fonts.SemiBold,
-      },
-      formContainer: {
-        marginTop: 20,
-      },
-      inputContainer: {
-        borderWidth: 1,
-        borderColor: colors.secondary,
-        borderRadius: 100,
-        paddingHorizontal: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 2,
-        marginVertical: 10,
-      },
-      textInput: {
-        flex: 1,
-        paddingHorizontal: 10,
-        fontFamily: fonts.Light,
-      },
-      eyeButton: {
-        position: 'absolute',
-        right: 15,
-      },
-      forgotPasswordText: {
-        textAlign: 'right',
-        color: colors.primary,
-        fontFamily: fonts.SemiBold,
-        marginVertical: 10,
-      },
-      loginButtonWrapper: {
-        backgroundColor: colors.primary,
-        borderRadius: 100,
-        marginTop: 20,
-      },
-      loginText: {
-        color: colors.white,
-        fontSize: 20,
-        fontFamily: fonts.SemiBold,
-        textAlign: 'center',
-        padding: 10,
-      },
-      continueText: {
-        textAlign: 'center',
-        marginVertical: 20,
-        fontSize: 14,
-        fontFamily: fonts.Regular,
-        color: colors.primary,
-      },
-      footerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 20,
-      },
-      accountText: {
-        fontSize: 14,
-        fontFamily: fonts.Regular,
-        color: colors.primary,
-      },
-      signupText: {
-        fontSize: 14,
-        fontFamily: fonts.SemiBold,
-        color: colors.primary,
-      },
-      // googleButtonContainer: {
-      //   backgroundColor: colors.white,
-      //   borderRadius: 100,
-      //   flexDirection: 'row',
-      //   padding: 12,
-      //   justifyContent: 'center',
-      //   alignItems: 'center',
-      //   marginVertical: 10,
-      //   borderWidth: 1,
-      //   borderColor: colors.primary,
-      // },
-      // googleImage: {
-      //   width: 20,
-      //   height: 20,
-      //   marginRight: 10,
-      // },
-      // googleText: {
-      //   color: colors.primary,
-      //   fontSize: 16,
-      //   fontFamily: fonts.SemiBold,
-      // },
-      // modalOverlay: {
-      //   flex: 1,
-      //   justifyContent: 'center',
-      //   alignItems: 'center',
-      //   backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      // },
-      // modalContent: {
-      //   width: '80%',
-      //   backgroundColor: colors.white,
-      //   padding: 20,
-      //   borderRadius: 10,
-      // },
-      // modalTitle: {
-      //   fontSize: 20,
-      //   fontFamily: fonts.SemiBold,
-      //   color: colors.primary,
-      //   textAlign: 'center',
-      //   marginBottom: 20,
-      // },
-      // modalInput: {
-      //   borderBottomWidth: 1,
-      //   borderBottomColor: colors.secondary,
-      //   paddingVertical: 10,
-      //   marginBottom: 20,
-      //   fontSize: 16,
-      //   color: colors.primary,
-      // },
-      // changePasswordButton: {
-      //   backgroundColor: colors.primary,
-      //   paddingVertical: 10,
-      //   borderRadius: 100,
-      //   marginVertical: 10,
-      // },
-      // changePasswordText: {
-      //   fontSize: 16,
-      //   textAlign: 'center',
-      //   color: colors.white,
-      //   fontFamily: fonts.SemiBold,
-      // },
-      // cancelButton: {
-      //   backgroundColor: colors.gray,
-      //   paddingVertical: 10,
-      //   borderRadius: 100,
-      // },
-      // cancelText: {
-      //   fontSize: 16,
-      //   textAlign: 'center',
-      //   color: colors.white,
-      //   fontFamily: fonts.SemiBold,
-      // },
+    flex: 1,
+    backgroundColor: colors.white,
+    padding: 20,
+  },
+  backButtonWrapper: {
+    height: 40,
+    width: 40,
+    backgroundColor: colors.gray,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textContainer: {
+    marginVertical: 20,
+  },
+  headingText: {
+    fontSize: 32,
+    color: colors.primary,
+    fontFamily: fonts.SemiBold,
+  },
+  formContainer: {
+    marginTop: 20,
+  },
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: colors.secondary,
+    borderRadius: 100,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 2,
+    marginVertical: 10,
+  },
+  textInput: {
+    flex: 1,
+    paddingHorizontal: 10,
+    fontFamily: fonts.Light,
+  },
+  eyeButton: {
+    position: 'absolute',
+    right: 15,
+  },
+  forgotPasswordText: {
+    textAlign: 'right',
+    color: colors.primary,
+    fontFamily: fonts.SemiBold,
+    marginVertical: 10,
+  },
+  loginButtonWrapper: {
+    backgroundColor: colors.primary,
+    borderRadius: 100,
+    marginTop: 20,
+  },
+  loginText: {
+    color: colors.white,
+    fontSize: 20,
+    fontFamily: fonts.SemiBold,
+    textAlign: 'center',
+    padding: 10,
+  },
+  continueText: {
+    textAlign: 'center',
+    marginVertical: 20,
+    fontSize: 14,
+    fontFamily: fonts.Regular,
+    color: colors.primary,
+  },
+  footerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  accountText: {
+    fontSize: 14,
+    fontFamily: fonts.Regular,
+    color: colors.primary,
+  },
+  signupText: {
+    fontSize: 14,
+    fontFamily: fonts.SemiBold,
+    color: colors.primary,
+  },
   errorInputContainer: {
     borderColor: 'red',
   },

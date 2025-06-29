@@ -6,6 +6,7 @@
 //   Button,
 //   FlatList,
 //   StyleSheet,
+//   Alert,
 // } from 'react-native';
 // import {colors} from './../../utils/colors';
 
@@ -23,13 +24,80 @@
 //   // Fetch data from API
 //   const searchMedicine = async (query: string) => {
 //     try {
+//       if (!query.trim()) {
+//         Alert.alert("Error", "Please enter a medicine name");
+//         return;
+//       }
+      
 //       const response = await fetch(
 //         `http://10.0.2.2:5000/getMedicine?medicine_name=${query}`,
 //       );
-//       const data: Medicine[] = await response.json();
+      
+//       // Check if response is successful
+//       if (!response.ok) {
+//         // If the status is 404, it means medicine not found
+//         if (response.status === 404) {
+//           Alert.alert(
+//             "Not Found",
+//             "Medicine not found",
+//             [{ text: "OK" }]
+//           );
+//           setMedicines([]);
+//           return;
+//         }
+        
+//         // Other error statuses
+//         throw new Error(`HTTP error! Status: ${response.status}`);
+//       }
+      
+//       // Parse response to JSON
+//       let data: Medicine[];
+//       try {
+//         data = await response.json();
+//       } catch (parseError) {
+//         console.error('Error parsing response:', parseError);
+//         Alert.alert(
+//           "Error",
+//           "Failed to process search results. Please try again.",
+//           [{ text: "OK" }]
+//         );
+//         setMedicines([]);
+//         return;
+//       }
+      
+//       // Check if data is empty or has no results
+//       if (!data || data.length === 0 || (Array.isArray(data) && data.length === 0)) {
+//         Alert.alert(
+//           "Not Found",
+//           "Medicine not found",
+//           [{ text: "OK" }]
+//         );
+//         setMedicines([]);
+//         return;
+//       }
+      
+//       // If we reached here, we have valid data
 //       setMedicines(data);
 //     } catch (error) {
 //       console.error('Error fetching medicines:', error);
+      
+//       // If it's an error related to medicine not found
+//       if (error instanceof Error && error.message.includes('not found')) {
+//         Alert.alert(
+//           "Not Found",
+//           "Medicine not found",
+//           [{ text: "OK" }]
+//         );
+//       } else {
+//         // General error
+//         Alert.alert(
+//           "Error",
+//           "Failed to search medicine. Please try again.",
+//           [{ text: "OK" }]
+//         );
+//       }
+      
+//       setMedicines([]);
 //     }
 //   };
 
@@ -212,17 +280,19 @@
 
 // export default CheckMedicineScreen;
 
+
 import React, {useState} from 'react';
 import {
   View,
   Text,
   TextInput,
-  Button,
+  TouchableOpacity,
   FlatList,
   StyleSheet,
   Alert,
 } from 'react-native';
 import {colors} from './../../utils/colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Medicine type definition
 type Medicine = {
@@ -318,18 +388,31 @@ const CheckMedicineScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Enter Medicine Name:</Text>
-      <TextInput
-        value={query}
-        onChangeText={setQuery}
-        placeholder="Search medicine"
-        style={styles.input}
-      />
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Search"
-          onPress={() => searchMedicine(query)}
-          color={colors.primary}
+      
+      {/* Styled search bar from HistoryScreen */}
+      <View style={styles.searchBar}>
+        <Ionicons name="search" size={20} color="#777" />
+        <TextInput 
+          style={styles.searchInput}
+          placeholder="Search medicine"
+          placeholderTextColor="#999"
+          value={query}
+          onChangeText={setQuery}
         />
+        {query ? (
+          <TouchableOpacity onPress={() => setQuery('')}>
+            <Ionicons name="close-circle" size={20} color="#777" />
+          </TouchableOpacity>
+        ) : null}
+      </View>
+      
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.searchButton}
+          onPress={() => searchMedicine(query)}
+        >
+          <Text style={styles.buttonText}>Search</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Medicine List */}
@@ -437,20 +520,39 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginVertical: 10,
+  // Search bar styles from HistoryScreen
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
     borderRadius: 8,
-    backgroundColor: '#fff',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    marginVertical: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 15,
+    marginLeft: 8,
+    color: '#333',
   },
   buttonContainer: {
-    borderRadius: 10,
-    overflow: 'hidden',
     marginTop: 10,
+    marginBottom: 15,
   },
-
+  searchButton: {
+    backgroundColor: colors.primary,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: '600',
+    fontSize: 16,
+  },
   medicineCard: {
     padding: 15,
     borderBottomWidth: 1,
@@ -487,9 +589,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
     color: '#000',
-
   },
-  
 });
 
 export default CheckMedicineScreen;

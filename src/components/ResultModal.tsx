@@ -32,7 +32,7 @@ export const ResultModal = ({ visible, onClose, ocrResult }: ResultModalProps) =
 // New styles for the Close button
 const modalButtonStyles = StyleSheet.create({
   closeButton: {
-    backgroundColor: colors.primary, // Same as other buttons
+    backgroundColor: colors.primary, 
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 20,

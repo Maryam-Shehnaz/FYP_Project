@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons
+import Icon from 'react-native-vector-icons/Ionicons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.1.103:3000/reviews'; 
+const API_URL = 'http://192.168.1.102:3000/reviews'; 
 
 const RateUsScreen = () => {
-  const navigation = useNavigation(); // Navigation hook
+  const navigation = useNavigation(); 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [reviews, setReviews] = useState([]);

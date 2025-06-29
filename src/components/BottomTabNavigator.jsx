@@ -1,8 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-// Import your existing screens
 import DashboardContent from '../screen/Drawer/DashboardContent'; 
 import ScanScreen from '../screen/Drawer/ScanScreen';
 import HistoryScreen from '../screen/Drawer/HistoryScreen';
@@ -25,7 +23,7 @@ const BottomTabNavigator = () => {
             iconName = focused ? 'time' : 'time-outline';
           }
           else if (route.name === 'Medicine') {  
-            iconName = focused ? 'medkit' : 'medkit-outline';// Added new icon
+            iconName = focused ? 'medkit' : 'medkit-outline';
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;

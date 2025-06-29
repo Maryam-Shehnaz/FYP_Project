@@ -106,7 +106,7 @@ const SignupScreen = () => {
 
     try {
       const response = await axios.post(
-        'http://192.168.1.103:3000/auth/signup',
+        'http://192.168.1.102:3000/auth/signup',
         {
           username,
           email,
@@ -295,26 +295,6 @@ const styles = StyleSheet.create({
         fontFamily: fonts.Regular,
         color: colors.primary,
       },
-    
-      // googleButtonContainer: {
-      //   flexDirection: 'row',
-      //   borderWidth: 2,
-      //   borderColor: colors.primary,
-      //   borderRadius: 100,
-      //   justifyContent: 'center',
-      //   alignItems: 'center',
-      //   padding: 10,
-      //   gap: 10,
-      // },
-      // googleImage: {
-      //   height: 20,
-      //   width: 20,
-      // },
-      // googleText: {
-      //   fontSize: 20,
-      //   fontFamily: fonts.SemiBold,
-      // },
-    
       footerContainer: {
         flexDirection: 'row',
         justifyContent: 'center',

@@ -1,20 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import OnboardingScreen from '../screen/OnboardingScreen';
 import BottomTabNavigator from '../components/BottomTabNavigator';
 import FAQScreen from '../screen/FAQScreen';
 import ProfileScreen from '../screen/ProfileScreen';
 import PrivacyPolicy from '../screen/PrivacyPolicy';
-import RateUsScreen from '../screen/RateUsScreen'; // Import Rate Us Screen
+import RateUsScreen from '../screen/RateUsScreen';
+import ChatbotScreen from '../screen/ChatbotScreen'; 
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Drawer = createDrawerNavigator();
 
-const CustomHeader = ({title}) => {
+const CustomHeader = ({ title }) => {
   const navigation = useNavigation();
 
   return (
@@ -27,7 +28,7 @@ const CustomHeader = ({title}) => {
   );
 };
 
-const CustomDrawerContent = ({navigation}) => {
+const CustomDrawerContent = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
@@ -68,31 +69,34 @@ const CustomDrawerContent = ({navigation}) => {
         <Text style={styles.loadingText}>Loading user details...</Text>
       )}
 
-      <View
-        style={{flex: 1, justifyContent: 'flex-start', paddingVertical: 20}}>
+      <View style={{ flex: 1, justifyContent: 'flex-start', paddingVertical: 20 }}>
         <TouchableOpacity
           style={styles.navButton}
-          onPress={() => navigation.navigate('Profile')}>
+          onPress={() => navigation.navigate('Profile')}
+        >
           <Icon name="person-outline" size={20} color="#333" />
-          <Text style={styles.navText}>Profile</Text>
+          <Text style={styles.navText}>My Profile</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.faqButton}
-          onPress={() => navigation.navigate('FAQ')}>
+          onPress={() => navigation.navigate('FAQ')}
+        >
           <Icon name="help-circle-outline" size={20} color="#333" />
           <Text style={styles.faqText}>FAQs</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.faqButton}
-          onPress={() => navigation.navigate('PrivacyPolicy')}>
+          onPress={() => navigation.navigate('PrivacyPolicy')}
+        >
           <Icon name="shield-checkmark-outline" size={20} color="#333" />
           <Text style={styles.faqText}>Privacy Policy</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.faqButton}
-          onPress={() => navigation.navigate('RateUs')}>
+          onPress={() => navigation.navigate('RateUs')}
+        >
           <Icon name="star-outline" size={20} color="#333" />
           <Text style={styles.faqText}>Rate Us</Text>
         </TouchableOpacity>
@@ -105,11 +109,12 @@ const CustomDrawerContent = ({navigation}) => {
   );
 };
 
-const DashboardScreen = ({navigation}) => {
+const DashboardScreen = ({ navigation }) => {
   return (
     <Drawer.Navigator
-      screenOptions={{headerShown: true}}
-      drawerContent={props => <CustomDrawerContent {...props} />}>
+      screenOptions={{ headerShown: true }}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+    >
       <Drawer.Screen
         name="Dashboard"
         component={BottomTabNavigator}
@@ -120,7 +125,7 @@ const DashboardScreen = ({navigation}) => {
       <Drawer.Screen
         name="FAQ"
         component={FAQScreen}
-        options={{header: () => <CustomHeader title="" />}}
+        options={{ header: () => <CustomHeader title="" /> }}
       />
       <Drawer.Screen
         name="Profile"
@@ -133,17 +138,22 @@ const DashboardScreen = ({navigation}) => {
       <Drawer.Screen
         name="PrivacyPolicy"
         component={PrivacyPolicy}
-        options={{header: () => <CustomHeader title="" />}}
+        options={{ header: () => <CustomHeader title="" /> }}
       />
       <Drawer.Screen
         name="RateUs"
         component={RateUsScreen}
-        options={{header: () => <CustomHeader title="" />}}
+        options={{ header: () => <CustomHeader title="" /> }}
       />
       <Drawer.Screen
         name="Onboarding"
         component={OnboardingScreen}
-        options={{drawerItemStyle: {display: 'none'}, headerShown: false}}
+        options={{ drawerItemStyle: { display: 'none' }, headerShown: false }}
+      />
+      <Drawer.Screen 
+        name="Chatbot"
+        component={ChatbotScreen}
+        options={{ header: () => <CustomHeader title="" /> }}
       />
     </Drawer.Navigator>
   );

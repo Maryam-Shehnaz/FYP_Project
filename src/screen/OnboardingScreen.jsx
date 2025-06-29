@@ -19,7 +19,6 @@ const OnboardingScreen = () => {
   return (
     <View style={styles.container}>
        <Text style={styles.appName}>MediScript</Text>
-      {/* <Image source={require("../assets/logo.png")} style={styles.logo}/> */}
       <Image source={require("../assets/bannerImage.png")} style={styles.bannerImage} />
       <Text style={styles.title}>Your Digital Prescription Assistant</Text>
       <Text style={styles.subTitle}>Transform your handwritten prescriptions into clear digital records. Scan, store, and understand your medications with confidence.
@@ -63,11 +62,6 @@ const styles = StyleSheet.create({
     marginVertical: 40,
     textAlign: "center",
   },
-  // logo:{
-  //   height: 120,
-  //   width: 290,
-  //   marginVertical:30,
-  // },
   bannerImage:{
     marginVertical:20,
     height:250,
