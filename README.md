@@ -57,4 +57,4 @@ Additionally, paper prescriptions can easily be lost or damaged, making it diffi
 
 The proposed application combines **AI, OCR, image processing, and a digital prescription management system** to provide a more accessible and organized way of managing medical prescriptions.
 
-Users can digitize handwritten prescriptions, obtain medication information, ask medicine-related questions through the AI chatbot, receive pediatric dosage guidance, and maintain their prescription history digitally.
+Users can digitize handwritten prescriptions, obtain medication information, ask medicine-related questions through the AI chatbot, and maintain their prescription history digitally.
